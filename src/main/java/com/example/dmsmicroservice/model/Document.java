@@ -29,4 +29,7 @@ public class Document {
 
     @ManyToOne
     private User createdBy;
+
+    @Column(length = 1000)
+    private String fileUrl;
 }

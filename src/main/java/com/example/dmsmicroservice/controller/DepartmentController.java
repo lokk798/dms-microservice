@@ -2,6 +2,7 @@ package com.example.dmsmicroservice.controller;
 
 import com.example.dmsmicroservice.model.Department;
 import com.example.dmsmicroservice.service.DepartmentService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/departments")
 @RequiredArgsConstructor
+@Tag(name = "Departments", description = "Department management and user assignment")
 public class DepartmentController {
     private final DepartmentService departmentService;
 

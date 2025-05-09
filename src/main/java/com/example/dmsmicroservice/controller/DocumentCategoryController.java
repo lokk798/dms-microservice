@@ -1,8 +1,8 @@
 package com.example.dmsmicroservice.controller;
 
-import com.example.dmsmicroservice.model.Department;
 import com.example.dmsmicroservice.model.DocumentCategory;
 import com.example.dmsmicroservice.service.DocumentCategoryService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/categories")
 @RequiredArgsConstructor
+@Tag(name = "Categories", description = "Categories management")
 public class DocumentCategoryController {
     private final DocumentCategoryService categoryService;
 

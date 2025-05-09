@@ -4,7 +4,6 @@ import com.example.dmsmicroservice.model.Department;
 import com.example.dmsmicroservice.model.User;
 import com.example.dmsmicroservice.repository.DepartmentRepository;
 import com.example.dmsmicroservice.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
