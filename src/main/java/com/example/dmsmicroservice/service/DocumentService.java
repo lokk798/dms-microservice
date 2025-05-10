@@ -80,6 +80,15 @@ public class DocumentService {
         }
     }
 
+    public Document updateTranslatedText(Long documentId, String translatedText) {
+        Document document = documentRepository.findById(documentId)
+                .orElseThrow(() -> new EntityNotFoundException("Document not found"));
+
+        document.setTranslatedTitle(translatedText);
+
+        return documentRepository.save(document);
+    }
+
 }
 
 

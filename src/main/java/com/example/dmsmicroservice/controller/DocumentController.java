@@ -2,16 +2,19 @@ package com.example.dmsmicroservice.controller;
 
 import com.example.dmsmicroservice.model.Document;
 import com.example.dmsmicroservice.repository.DocumentRepository;
+import com.example.dmsmicroservice.service.DocumentPublisher;
 import com.example.dmsmicroservice.service.DocumentService;
 import com.example.dmsmicroservice.service.StorageClient;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/documents")
@@ -22,6 +25,8 @@ public class DocumentController {
     private final DocumentService documentService;
     private final DocumentRepository documentRepository;
     private final StorageClient storageClient;
+    @Autowired
+    private final DocumentPublisher documentPublisher;
 
     // Endpoint for creating a document
     @PostMapping
@@ -74,6 +79,28 @@ public class DocumentController {
         }catch (Exception e){
             return ResponseEntity.status(500).body(null);
         }
+    }
+
+    @PostMapping("/{id}/translate/")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<String> translateTitle(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "en") String sourceLang,
+            @RequestParam String targetLang) {
+
+        Optional<Document> documentOpt = documentRepository.findById(id);
+
+        System.err.println("trying to translate title of document");
+
+        if (documentOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Document document = documentOpt.get();
+        System.err.println("sending the document to be translated in sendForTranslate function");
+        documentPublisher.sendForTranslation(document, sourceLang, targetLang);
+
+        return ResponseEntity.ok("Translation requested for document ID " + id);
     }
 
 

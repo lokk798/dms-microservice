@@ -2,7 +2,6 @@ package com.example.dmsmicroservice.service;
 
 import com.example.dmsmicroservice.utils.MultipartInputStreamFileResource;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
