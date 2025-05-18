@@ -28,11 +28,11 @@ public class StorageClient {
         body.add("file", new MultipartInputStreamFileResource(file.getInputStream(), file.getOriginalFilename()));
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-        restTemplate.postForEntity("http://localhost:8080/api/storage/upload", requestEntity, String.class);
+        restTemplate.postForEntity("http://localhost:8083/api/storage/upload", requestEntity, String.class);
 
         // Get pre-signed URL
         String url = restTemplate.getForObject(
-                "http://localhost:8080/api/storage/url?fileName=" + file.getOriginalFilename(),
+                "http://localhost:8083/api/storage/url?fileName=" + file.getOriginalFilename(),
                 String.class
         );
 
